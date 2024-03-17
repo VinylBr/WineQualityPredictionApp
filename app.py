@@ -16,8 +16,8 @@ st.write("Hi! What factors control wine quality? Let's find out")
 X = pd.read_csv("data/X_df.csv")
 y = pd.read_csv("data/y_df.csv")
 
-max_depth = 21
-n_estimators = 41
+max_depth = 25
+n_estimators = 22
 
 
 tab1, tab2 = st.tabs(["Prediction", "Feature Importance"]) #tab1 for prediction and tab2 for feature importance
@@ -36,10 +36,10 @@ with column1:
         sliders.append(col_slider)
 with column2:
     st_scale  = StandardScaler()
-    X = st_scale.fit_transform(X)
+    #X = st_scale.fit_transform(X)
     X_test = np.array(sliders).reshape(1,-1)
-    best_forest_class = RandomForestClassifier(max_depth = max_depth, n_estimators = n_estimators)
+    best_forest_class = RandomForestClassifier(max_depth = max_depth, n_estimators = n_estimators,class_weights = "balanced_subsample" )
     best_forest_class.fit(X, y['quality'])
-    scaled_test_features = st_scale.transform(X_test)
+    #scaled_test_features = st_scale.transform(X_test)
     y_pred_svr = best_forest_class.predict(X_test)
     st.write(y_pred_svr)
