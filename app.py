@@ -22,7 +22,6 @@ max_depth = 25
 n_estimators = 22
 
 
-tab1, tab2 = st.tabs(["Prediction", "Feature Importance"]) #tab1 for prediction and tab2 for feature importance
 
 cols_to_transform = ["residual_sugar", "free_sulfur_dioxide", "Bound_sulfur_dioxide"]
 
