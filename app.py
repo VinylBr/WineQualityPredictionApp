@@ -27,7 +27,7 @@ scaled_features = st_scale.fit_transform(features_df)
 
 sliders = []
 for col in features_df.columns:
-    col_slider = st.slider(label = col, min_value = float(features_df[col].min()), max_value = float(features_df[col].max()))
+    col_slider = st.slider(label = col, min_value = float(features_df[col].min()), max_value = float(features_df[col].max()), value = float(features_df[col].mean()))
     if col in cols_to_transform:
         col_slider = np.log(col_slider)
     sliders.append(col_slider)
