@@ -1,17 +1,24 @@
 import numpy as np
 import pandas as pd
 import streamlit as st
-import pickle
+from joblib import dump, load
 from sklearn.svm import SVR
-from sklearn.metrics import mean_squared_erroskr
+from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import StandardScaler 
+from sklearn.exceptions import InconsistentVersionWarning
 
 st.title("Wine Quality")
 st.write("Hi! What factors control wine quality? Let's find out")
-model_pkl_file = "model/wineprediction_model.pkl"
+model_jl_file = "model/wineprediction_model.joblib"
 
-model = pickle.load(open(model_pkl_file, 'rb'))
+model = load(open(model_jl_file, 'rb'))
+warnings.simplefilter("error", InconsistentVersionWarning)
+
+try:
+    est = pickle.loads("model_from_prevision_version.pickle")
+except InconsistentVersionWarning as w:
+    print(w.original_sklearn_version)
 
 
 features_df = pd.read_csv("data/getfeatures.csv")
