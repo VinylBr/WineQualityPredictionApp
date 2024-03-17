@@ -6,7 +6,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import StandardScaler 
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 
 st.title("Wine Quality")
 st.write("Hi! What factors control wine quality? Let's find out")
