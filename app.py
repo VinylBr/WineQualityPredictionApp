@@ -38,7 +38,7 @@ with column2:
     st_scale  = StandardScaler()
     #X = st_scale.fit_transform(X)
     X_test = np.array(sliders).reshape(1,-1)
-    best_forest_class = RandomForestClassifier(max_depth = max_depth, n_estimators = n_estimators,class_weights = "balanced_subsample" )
+    best_forest_class = RandomForestClassifier(max_depth = max_depth, n_estimators = n_estimators, class_weight = "balanced_subsample" )
     best_forest_class.fit(X, y['quality'])
     #scaled_test_features = st_scale.transform(X_test)
     y_pred_svr = best_forest_class.predict(X_test)
