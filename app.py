@@ -48,10 +48,10 @@ with column2:
     mean_importance = best_forest_class.feature_importances_
     sorted_idx = mean_importance.argsort()
     std_importance = np.std([tree.feature_importances_ for tree in best_forest_class.estimators_], axis = 0)
-    fig, ax = plt.subplots(figsize = (5,4))
+    feature_fig, ax = plt.subplots(figsize = (5,4))
     ax.barh(pd.Series(features)[sorted_idx],
             mean_importance[sorted_idx],
             xerr = std_importance,
             ecolor = "yellow"
             )
-    plt.show()
+    st.pyplot(feature_fig)
