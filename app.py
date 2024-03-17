@@ -3,7 +3,7 @@ import pandas as pd
 import streamlit as st
 import pickle
 from sklearn.svm import SVR
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_erroskr
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import StandardScaler 
 
@@ -11,8 +11,7 @@ st.title("Wine Quality")
 st.write("Hi! What factors control wine quality? Let's find out")
 model_pkl_file = "model/wineprediction_model.pkl"
 
-with open(model_pkl_file, 'rb') as file:
-    model = pickle.load(file)
+model = pickle.load(open(model_pkl_file, 'rb'))
 
 
 features_df = pd.read_csv("data/getfeatures.csv")
