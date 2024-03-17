@@ -7,6 +7,7 @@ from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import StandardScaler 
 from matplotlib import pyplot as plt
+plt.style.use(['dark_background'])
 
 st.title("Wine Quality")
 st.write("Hi! What factors control wine quality? Let's find out")
