@@ -6,6 +6,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import StandardScaler 
+import matplotlib.pyplot as plt
 
 st.title("Wine Quality")
 st.write("Hi! What factors control wine quality? Let's find out")
@@ -43,3 +44,14 @@ with column2:
     #scaled_test_features = st_scale.transform(X_test)
     y_pred_svr = best_forest_class.predict(X_test)
     st.write(y_pred_svr)
+
+    mean_importance = best_forest_class.feature_importances_
+    sorted_idx = mean_importance.argsort()
+    std_importance = np.std([tree.feature_importances_ for tree in best_forest_class.estimators_], axis = 0)
+    fig, ax = plt.subplots(figsize = (5,4))
+    ax.barh(pd.Series(features)[sorted_idx],
+            mean_importance[sorted_idx],
+            xerr = std_importance,
+            ecolor = "yellow"
+            )
+    plt.show()
