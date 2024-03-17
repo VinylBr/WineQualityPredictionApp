@@ -30,7 +30,7 @@ column1, column2 = st.columns(2)
 with column1:
     sliders = []
     for col in features:
-        col_slider = st.slider(label = col, min_value = float(X[col].min()), max_value = float(X[col].max()), value = float(X[col].mean()))
+        col_slider = st.slider(label = col, min_value = float(X[col].min()), max_value = float(X[col].max()))#, value = float(X[col].mean()))
         if col in cols_to_transform:
             col_slider = np.log(col_slider)
         sliders.append(col_slider)
