@@ -26,19 +26,20 @@ cols_to_transform = ["residual_sugar", "free_sulfur_dioxide", "Bound_sulfur_diox
 
 features = X.columns.values
 
-
-sliders = []
-for col in features:
-    col_slider = st.slider(label = col, min_value = float(X[col].min()), max_value = float(X[col].max()), value = float(X[col].mean()))
-    if col in cols_to_transform:
-        col_slider = np.log(col_slider)
-    sliders.append(col_slider)
-
-st_scale  = StandardScaler()
-X = st_scale.fit_transform(X)
-X_test = np.array(sliders).reshape(1,-1)
-best_forest_class = RandomForestClassifier(max_depth = max_depth, n_estimators = n_estimators)
-best_forest_class.fit(X, y['quality'])
-scaled_test_features = st_scale.transform(X_test)
-
-y_pred_svr = best_forest_class.predict(X_test)
+column1, column2 = st.columns(2)
+with column1:
+    sliders = []
+    for col in features:
+        col_slider = st.slider(label = col, min_value = float(X[col].min()), max_value = float(X[col].max()), value = float(X[col].mean()))
+        if col in cols_to_transform:
+            col_slider = np.log(col_slider)
+        sliders.append(col_slider)
+with column2:
+    st_scale  = StandardScaler()
+    X = st_scale.fit_transform(X)
+    X_test = np.array(sliders).reshape(1,-1)
+    best_forest_class = RandomForestClassifier(max_depth = max_depth, n_estimators = n_estimators)
+    best_forest_class.fit(X, y['quality'])
+    scaled_test_features = st_scale.transform(X_test)
+    y_pred_svr = best_forest_class.predict(X_test)
+    st.write(y_pred_svr)
