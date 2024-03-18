@@ -43,7 +43,7 @@ with column2:
     best_forest_class.fit(X, y['quality'])
     #scaled_test_features = st_scale.transform(X_test)
     y_pred_svr = best_forest_class.predict(X_test)
-    st.write(y_pred_svr)
+    st.markdown(f"## Wine Quality Prediction {y_pred_svr[0]}")
 
     mean_importance = best_forest_class.feature_importances_
     sorted_idx = mean_importance.argsort()
