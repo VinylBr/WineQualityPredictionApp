@@ -27,31 +27,31 @@ cols_to_transform = ["residual_sugar", "free_sulfur_dioxide", "Bound_sulfur_diox
 
 features = X.columns.values
 
-column1, column2 = st.columns(2)
-with column1:
+#column1, column2 = st.columns(2)
+with st.sidebar:
     sliders = []
     for col in features:
         col_slider = st.slider(label = col, min_value = float(X[col].min()), max_value = float(X[col].max()))#, value = float(X[col].mean()))
         if col in cols_to_transform:
             col_slider = np.log(col_slider)
         sliders.append(col_slider)
-with column2:
-    st_scale  = StandardScaler()
-    #X = st_scale.fit_transform(X)
-    X_test = np.array(sliders).reshape(1,-1)
-    best_forest_class = RandomForestClassifier(max_depth = max_depth, n_estimators = n_estimators, class_weight = "balanced_subsample" )
-    best_forest_class.fit(X, y['quality'])
-    #scaled_test_features = st_scale.transform(X_test)
-    y_pred_svr = best_forest_class.predict(X_test)
-    st.markdown(f"## Wine Quality Prediction {y_pred_svr[0]}")
 
-    mean_importance = best_forest_class.feature_importances_
-    sorted_idx = mean_importance.argsort()
-    std_importance = np.std([tree.feature_importances_ for tree in best_forest_class.estimators_], axis = 0)
-    feature_fig, ax = plt.subplots(figsize = (5,4))
-    ax.barh(pd.Series(features)[sorted_idx],
-            mean_importance[sorted_idx],
-            xerr = std_importance,
-            ecolor = "yellow"
-            )
-    st.pyplot(feature_fig)
+st_scale  = StandardScaler()
+#X = st_scale.fit_transform(X)
+X_test = np.array(sliders).reshape(1,-1)
+best_forest_class = RandomForestClassifier(max_depth = max_depth, n_estimators = n_estimators, class_weight = "balanced_subsample" )
+best_forest_class.fit(X, y['quality'])
+#scaled_test_features = st_scale.transform(X_test)
+y_pred_svr = best_forest_class.predict(X_test)
+st.markdown(f"## Predicted Quality: {y_pred_svr[0]}")
+
+mean_importance = best_forest_class.feature_importances_
+sorted_idx = mean_importance.argsort()
+std_importance = np.std([tree.feature_importances_ for tree in best_forest_class.estimators_], axis = 0)
+feature_fig, ax = plt.subplots(figsize = (5,4))
+ax.barh(pd.Series(features)[sorted_idx],
+        mean_importance[sorted_idx],
+        xerr = std_importance,
+        ecolor = "yellow"
+        )
+st.pyplot(feature_fig)
