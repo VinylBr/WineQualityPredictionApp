@@ -7,6 +7,7 @@ from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import StandardScaler 
 from matplotlib import pyplot as plt
+from sklearn.inspection import permutation_importance#
 plt.style.use(['dark_background'])
 
 st.title("Wine Quality")
@@ -45,14 +46,26 @@ best_forest_class.fit(X, y['quality'])
 #scaled_test_features = st_scale.transform(X_test)
 y_pred_svr = best_forest_class.predict(X_test)
 st.markdown(f"## Predicted Quality: {y_pred_svr[0]}")
-
-mean_importance = best_forest_class.feature_importances_
-sorted_idx = mean_importance.argsort()
-std_importance = np.std([tree.feature_importances_ for tree in best_forest_class.estimators_], axis = 0)
+random_state = 11
+n_repeats = 10
+RF_importance = permutation_importance(best_forest_class, X, y, random_state = random_state, n_repeats = n_repeats)
 feature_fig, ax = plt.subplots(figsize = (5,4))
-ax.barh(pd.Series(features)[sorted_idx],
-        mean_importance[sorted_idx],
-        xerr = std_importance,
-        ecolor = "yellow"
-        )
+
+ax.barh(pd.Series(features),
+             RF_importance.importances_mean,
+             xerr = RF_importance.importances_std,
+             ecolor = "yellow")
+ax.set_xlabel("Perm_importance")
+ax.set_xlim(0, 0.4)
+ax.set_title("RandomForest")
+
+#mean_importance = best_forest_class.feature_importances_
+#sorted_idx = mean_importance.argsort()
+#std_importance = np.std([tree.feature_importances_ for tree in best_forest_class.estimators_], axis = 0)
+#feature_fig, ax = plt.subplots(figsize = (5,4))
+#ax.barh(pd.Series(features)[sorted_idx],
+#        mean_importance[sorted_idx],
+#        xerr = std_importance,
+#        ecolor = "yellow"
+#        )
 st.pyplot(feature_fig)
