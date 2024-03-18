@@ -29,6 +29,7 @@ features = X.columns.values
 
 #column1, column2 = st.columns(2)
 with st.sidebar:
+    st.title("Underlying Properties (Features)")
     sliders = []
     for col in features:
         col_slider = st.slider(label = col, min_value = float(X[col].min()), max_value = float(X[col].max()))#, value = float(X[col].mean()))
