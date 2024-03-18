@@ -12,15 +12,15 @@ plt.style.use(['dark_background'])
 
 st.title("Wine Quality")
 st.write("Hi! What factors control wine quality? Let's find out")
-#model_jl_file = "model/wineprediction_model.joblib"
+model_jl_file = "model/wineprediction_model.joblib"
 
-#model = load(model_jl_file)
+model = load(model_jl_file)
 
 X = pd.read_csv("data/X_df.csv")
 y = pd.read_csv("data/y_df.csv")
 
-max_depth = 25
-n_estimators = 22
+#max_depth = 25
+#n_estimators = 22
 
 
 
@@ -38,17 +38,19 @@ with st.sidebar:
             col_slider = np.log(col_slider)
         sliders.append(col_slider)
 
-st_scale  = StandardScaler()
+#st_scale  = StandardScaler()
 #X = st_scale.fit_transform(X)
 X_test = np.array(sliders).reshape(1,-1)
-best_forest_class = RandomForestClassifier(max_depth = max_depth, n_estimators = n_estimators, class_weight = "balanced_subsample" )
-best_forest_class.fit(X, y['quality'])
+
+#best_forest_class = RandomForestClassifier(max_depth = max_depth, n_estimators = n_estimators, class_weight = "balanced_subsample" )
+#best_forest_class.fit(X, y['quality'])
 #scaled_test_features = st_scale.transform(X_test)
-y_pred_svr = best_forest_class.predict(X_test)
+y_pred_svr = model.predict(X_test)
+
 st.markdown(f"## Predicted Quality: {y_pred_svr[0]}")
 random_state = 11
 n_repeats = 10
-RF_importance = permutation_importance(best_forest_class, X, y, random_state = random_state, n_repeats = n_repeats)
+RF_importance = permutation_importance(model, X, y, random_state = random_state, n_repeats = n_repeats)
 feature_fig, ax = plt.subplots(figsize = (5,4))
 sorted_idx = RF_importance.importances_mean.argsort()
 ax.barh(pd.Series(features)[sorted_idx],
@@ -57,7 +59,7 @@ ax.barh(pd.Series(features)[sorted_idx],
              ecolor = "yellow")
 ax.set_xlabel("Perm_importance")
 ax.set_xlim(0, 0.3)
-ax.set_title("Feature Importance (_Permutation Importance_)")
+ax.set_title("Feature Importance")
 
 #mean_importance = best_forest_class.feature_importances_
 #sorted_idx = mean_importance.argsort()
