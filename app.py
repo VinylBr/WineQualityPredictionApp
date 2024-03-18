@@ -6,8 +6,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import StandardScaler 
-from matplotlib import pyplot as plt
-from sklearn.inspection import permutation_importance#
+import matplotlib.pyplot as plt 
+from sklearn.inspection import permutation_importance
 plt.style.use(['dark_background'])
 
 st.title("Wine Quality")
@@ -50,7 +50,9 @@ y_pred_svr = model.predict(X_test)
 st.markdown(f"## Predicted Quality: {y_pred_svr[0]}")
 random_state = 11
 n_repeats = 10
-RF_importance = permutation_importance(model, X, y, random_state = random_state, n_repeats = n_repeats)
+FI_jl_file = "model/feature_importance.joblib"
+RF_importance = load(FI_jl_file)
+#permutation_importance(model, X, y, random_state = random_state, n_repeats = n_repeats)
 feature_fig, ax = plt.subplots(figsize = (5,4))
 sorted_idx = RF_importance.importances_mean.argsort()
 ax.barh(pd.Series(features)[sorted_idx],
