@@ -50,14 +50,14 @@ random_state = 11
 n_repeats = 10
 RF_importance = permutation_importance(best_forest_class, X, y, random_state = random_state, n_repeats = n_repeats)
 feature_fig, ax = plt.subplots(figsize = (5,4))
-
-ax.barh(pd.Series(features),
-             RF_importance.importances_mean,
-             xerr = RF_importance.importances_std,
+sorted_idx = RF_importance.importances_mean.argsort()
+ax.barh(pd.Series(features)[sorted_idx],
+             RF_importance.importances_mean[sorted_idx],
+             xerr = RF_importance.importances_std[sorted_idx],
              ecolor = "yellow")
 ax.set_xlabel("Perm_importance")
-ax.set_xlim(0, 0.4)
-ax.set_title("RandomForest")
+ax.set_xlim(0, 0.3)
+ax.set_title("Feature Importance (_Permutation Importance_)")
 
 #mean_importance = best_forest_class.feature_importances_
 #sorted_idx = mean_importance.argsort()
