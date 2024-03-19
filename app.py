@@ -48,7 +48,8 @@ X_test = np.array(sliders).reshape(1,-1)
 y_pred_svr = model.predict(X_test)
 prediction_prob = model.predict_proba(X_test)
 bestlabelprobability = prediction_prob[(model.classes_ == y_pred_svr).reshape(1,-1)]
-st.markdown(f"## Predicted Quality: :red[{y_pred_svr[0]}] with probability: ###{bestlabelprobability[0] :.2f}")
+st.markdown(f"## Predicted Quality: :red[{y_pred_svr[0]}]")
+st.markdown(f"### Confidence: {bestlabelprobability[0] :.2f}")
 FI_jl_file = "model/feature_importance.joblib"
 RF_importance = load(FI_jl_file)
 feature_fig, ax = plt.subplots(figsize = (5,4))
