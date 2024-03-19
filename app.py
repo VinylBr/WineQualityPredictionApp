@@ -33,9 +33,13 @@ with st.sidebar:
     st.title("Underlying Properties (Features)")
     sliders = []
     for col in features:
-        col_slider = st.slider(label = col, min_value = float(X[col].min()), max_value = float(X[col].max()))#, value = float(X[col].mean()))
+        if col == "density":
+            col_slider = st.slider(label = col, min_value = float(X[col].min()), max_value = float(X[col].max()), step = 0.001)#, value = float(X[col].mean()))
+        else:    
+            col_slider = st.slider(label = col, min_value = float(X[col].min()), max_value = float(X[col].max()))#, value = float(X[col].mean()))
         if col in cols_to_transform:
             col_slider = np.log(col_slider)
+            
         sliders.append(col_slider)
 
 #st_scale  = StandardScaler()
@@ -49,7 +53,7 @@ y_pred_svr = model.predict(X_test)
 prediction_prob = model.predict_proba(X_test)
 bestlabelprobability = prediction_prob[(model.classes_ == y_pred_svr).reshape(1,-1)]
 st.markdown(f"## Predicted Quality: :red[{y_pred_svr[0]}]")
-st.markdown(f":blue[Confidence: {bestlabelprobability[0] :.2f}]")
+st.markdown(f"### :blue[Confidence: {bestlabelprobability[0] :.2f}]")
 FI_jl_file = "model/feature_importance.joblib"
 RF_importance = load(FI_jl_file)
 feature_fig, ax = plt.subplots(figsize = (5,4))
