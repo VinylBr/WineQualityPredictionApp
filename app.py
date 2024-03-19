@@ -10,8 +10,8 @@ import matplotlib.pyplot as plt
 #from sklearn.inspection import permutation_importance
 plt.style.use(['dark_background'])
 
-st.title("Wine Quality")
-st.write("Hi! What factors control wine quality? Let's find out")
+st.title("Let's Predict Red Wine Quality")
+st.divider()
 model_jl_file = "model/wineprediction_model.joblib"
 
 model = load(model_jl_file)
@@ -52,7 +52,7 @@ X_test = np.array(sliders).reshape(1,-1)
 y_pred_svr = model.predict(X_test)
 prediction_prob = model.predict_proba(X_test)
 bestlabelprobability = prediction_prob[(model.classes_ == y_pred_svr).reshape(1,-1)]
-st.markdown(f"## Predicted Quality: :red[{y_pred_svr[0]}]")
+st.markdown(f"## Predicted Quality: :red[{y_pred_svr[0]}] (_>5 is Good Wine_)")
 st.markdown(f"### :blue[Confidence: {bestlabelprobability[0] :.2f}]")
 FI_jl_file = "model/feature_importance.joblib"
 RF_importance = load(FI_jl_file)
@@ -63,7 +63,7 @@ ax.barh(pd.Series(features)[sorted_idx],
              xerr = RF_importance.importances_std[sorted_idx],
              ecolor = "yellow")
 ax.set_xlabel("Perm_importance")
-ax.set_xlim(0, 0.3)
+ax.set_xlim(0, 0.25)
 ax.set_title("Feature Importance")
 
 st.pyplot(feature_fig)
