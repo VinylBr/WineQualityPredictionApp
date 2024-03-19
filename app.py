@@ -2,12 +2,12 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 from joblib import dump, load
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import mean_squared_error
-from sklearn.model_selection import GridSearchCV
-from sklearn.preprocessing import StandardScaler 
+#from sklearn.ensemble import RandomForestClassifier
+#from sklearn.metrics import mean_squared_error
+#from sklearn.model_selection import GridSearchCV
+#from sklearn.preprocessing import StandardScaler 
 import matplotlib.pyplot as plt 
-from sklearn.inspection import permutation_importance
+#from sklearn.inspection import permutation_importance
 plt.style.use(['dark_background'])
 
 st.title("Wine Quality")
@@ -46,13 +46,11 @@ X_test = np.array(sliders).reshape(1,-1)
 #best_forest_class.fit(X, y['quality'])
 #scaled_test_features = st_scale.transform(X_test)
 y_pred_svr = model.predict(X_test)
-
-st.markdown(f"## Predicted Quality: {y_pred_svr[0]}")
-random_state = 11
-n_repeats = 10
+prediction_prob = model.predict_proba(X_test)
+bestlabelprobability = prediction_prob[(model.classes_ == y_pred_svr).reshape(1,-1)]
+st.markdown(f"## Predicted Quality: :red[{y_pred_svr[0]}] with probability: ###{bestlabelprobability[0] :.2f}")
 FI_jl_file = "model/feature_importance.joblib"
 RF_importance = load(FI_jl_file)
-#permutation_importance(model, X, y, random_state = random_state, n_repeats = n_repeats)
 feature_fig, ax = plt.subplots(figsize = (5,4))
 sorted_idx = RF_importance.importances_mean.argsort()
 ax.barh(pd.Series(features)[sorted_idx],
@@ -63,13 +61,4 @@ ax.set_xlabel("Perm_importance")
 ax.set_xlim(0, 0.3)
 ax.set_title("Feature Importance")
 
-#mean_importance = best_forest_class.feature_importances_
-#sorted_idx = mean_importance.argsort()
-#std_importance = np.std([tree.feature_importances_ for tree in best_forest_class.estimators_], axis = 0)
-#feature_fig, ax = plt.subplots(figsize = (5,4))
-#ax.barh(pd.Series(features)[sorted_idx],
-#        mean_importance[sorted_idx],
-#        xerr = std_importance,
-#        ecolor = "yellow"
-#        )
 st.pyplot(feature_fig)
