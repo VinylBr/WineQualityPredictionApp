@@ -91,12 +91,12 @@ def RedWine():
     with st.expander("Model Performance"):
         st.markdown("Confusion Matrix: How confused is the ML model :sweat_smile:")
         st.write("Ex: Row1: for quality 4(true label), 100% of the times model predicts it to be 5 (predicted label) -*Pretty confused with quality 4*")
-        confusion_fig, ax2 = plt.subplots(figsize = (5,4))
+        confusion_red, ax1 = plt.subplots(figsize = (5,4))
         y_pred_red_test = model_red.predict(X_red_test)
         
         ConfusionMatrixDisplay.from_predictions(
-            y_red_test, y_pred_red_test, xticks_rotation="vertical", normalize = 'true', ax = ax2)
-        st.pyplot(confusion_fig, use_container_width=True)
+            y_red_test, y_pred_red_test, normalize = 'true', ax = ax1)
+        st.pyplot(confusion_red, use_container_width=True)
 
 ## White Wine Page##
 def WhiteWine():
@@ -189,12 +189,12 @@ def WhiteWine():
     with st.expander("Model Performance"):
         st.markdown("Confusion Matrix: How confused is the ML model :sweat_smile:")
         st.write("Ex: Row1: for quality 4(true label), 100% of the times model predicts it to be 5 (predicted label) -*Pretty confused with quality 4*")
-        confusion_fig, ax2 = plt.subplots(figsize = (5,4))
+        confusion_white, ax2 = plt.subplots(figsize = (5,4))
         y_pred_white_test = model_white.predict(X_white_test)
         
         ConfusionMatrixDisplay.from_predictions(
-            y_white_test, y_pred_white_test, xticks_rotation="vertical", normalize = 'true', ax = ax2)
-        st.pyplot(confusion_fig, use_container_width=True)
+            y_white_test, y_pred_white_test, normalize = 'true', ax = ax2)
+        st.pyplot(confusion_white, use_container_width=True)
 
 
 page_names_to_funcs = {
