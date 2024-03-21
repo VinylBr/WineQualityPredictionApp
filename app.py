@@ -12,11 +12,15 @@ model_jl_file = "model/wineprediction_model.joblib"
 
 model = load(model_jl_file)
 
-X = pd.read_csv("data/X_df.csv")
-y = pd.read_csv("data/y_df.csv")
+X_red = pd.read_csv("data/red/X_train_df.csv")
+y_red = pd.read_csv("data/red/y_train_df.csv")
+X_red_test = pd.read_csv("data/red/X_test_df.csv")
+y_red_test = pd.read_csv("data/red/y_test_df.csv")
 
 
-features = X.columns.values
+cols_to_transform: ["residual_sugar", "total_sulfur_dioxide"]
+
+features = X_red.columns.values
 
 with st.sidebar:
     st.title("Underlying Properties (Features)")
@@ -33,10 +37,10 @@ with st.sidebar:
 
 #st_scale  = StandardScaler()
 #X = st_scale.fit_transform(X)
-X_test = np.array(sliders).reshape(1,-1)
+X_usr = np.array(sliders).reshape(1,-1)
 
-y_pred_svr = model.predict(X_test)
-prediction_prob = model.predict_proba(X_test)
+y_pred_svr = model.predict(X_usr)
+prediction_prob = model.predict_proba(X_usr)
 bestlabelprobability = prediction_prob[(model.classes_ == y_pred_svr).reshape(1,-1)]
 st.markdown(f"## Predicted Quality: :red[{y_pred_svr[0]}] (_>5 is Good Wine_)")
 st.markdown(f"### :blue[Confidence: {bestlabelprobability[0] :.2f}]")
@@ -63,4 +67,5 @@ with col1:
 with col2: 
     with st.expander("Model Performance in general"):
         confusion_fig, ax2 = plt.subplots(figsize = (5,4))
-        plot_confusion_matrix()
+        y_pred_red_test = model.predict(X_red_test)
+        plot_confusion_matrix(y_red_test, y_pred_red_test, normalize = True)
