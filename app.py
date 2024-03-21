@@ -138,7 +138,7 @@ def WhiteWine():
     #feature_merge = np.concatenate(features, exp_features, axis = 2)
     feature_merge = [i + ":" + j for i, j in zip(features, exp_features)]
     with st.sidebar:
-        st.title("Underlying Properties (Features)")
+        st.title("Underlying Properties")
         sliders = []
         for ind, col in enumerate(features):
             if col == "density":
