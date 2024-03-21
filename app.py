@@ -1,7 +1,8 @@
-DB_username = "Vinay Barnabas"
-DB_key = "196916"
+DB_USERNAME = "Vinay Barnabas"
+DB_KEY = "196916"
 
 import streamlit as st
+
 ##Red Wine Page##
 def RedWine():
     import numpy as np
