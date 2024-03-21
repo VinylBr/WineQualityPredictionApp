@@ -88,8 +88,8 @@ with st.expander("Which feature is most importance"):
 
 
 with st.expander("Model Performance"):
-    st.markdown("Numbers = What fraction of the true labels lie in each cell")
-    st.write("For example, in row1: for quality of 4(true label), 100% of the times model predicted it to be 5 (predicted label)")
+    st.markdown("How confused is the ML model :sweat_smile:")
+    st.write("For example, in row1: for quality of 4(true label), 100% of the times model predicted it to be 5 (predicted label), *Pretty confused with quality 4*")
     confusion_fig, ax2 = plt.subplots(figsize = (5,4))
     y_pred_red_test = model_red.predict(X_red_test)
     
