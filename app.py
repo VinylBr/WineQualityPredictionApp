@@ -109,7 +109,7 @@ def WhiteWine():
     import matplotlib.pyplot as plt 
     plt.style.use(['dark_background'])
 
-    st.title(":white[Let's Predict White Wine Quality]")
+    st.title(":white[White Wine Quality]")
     st.divider()
     model_jl_file = "model/whitewine_model.joblib"
 
