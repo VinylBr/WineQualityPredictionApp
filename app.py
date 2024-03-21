@@ -13,7 +13,7 @@ def RedWine():
     import matplotlib.pyplot as plt 
     plt.style.use(['dark_background'])
 
-    st.title("'red[Red Wine Quality]")
+    st.title(":red[Red Wine Quality]")
     st.divider()
     model_jl_file = "model/redwine_model.joblib"
 
