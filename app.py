@@ -68,7 +68,7 @@ def RedWine():
 
     st.divider()
 
-    with st.expander("Which feature is most importance"):
+    with st.expander("Which feature is most important"):
         st.markdown("How importance is a feature to Red wine quality")
         feature_fig, ax = plt.subplots(figsize = (5,4))
         n_repeats = 11
@@ -166,7 +166,7 @@ def WhiteWine():
     st.divider()
 
 
-    with st.expander("Which feature is most importance"):
+    with st.expander("Which feature is most important"):
         st.markdown("How importance is a feature to Red wine quality")
         feature_fig, ax = plt.subplots(figsize = (5,4))
         n_repeats = 11
