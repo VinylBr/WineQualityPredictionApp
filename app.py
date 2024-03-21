@@ -81,7 +81,7 @@ def RedWine():
         ax.barh(pd.Series(features)[sorted_idx],# create horizontal bar plot of sorted feature importance
         mean_importance[sorted_idx], # mean values
         xerr = std_importance, #std
-        ecolor = "yellow" #color ofr std wick
+        ecolor = "yellow" #color of std wick
         )
         ax.set_xlabel("Importance measure")
         ax.set_xlim(0, 0.25)
@@ -136,20 +136,16 @@ def WhiteWine():
                     "Preservatives: Sulphates (ppm)",
                     "Alcohol Content (%vol)",
                     "Preservatives: Molecular SO2 (ppm)"]
-    #feature_merge = np.concatenate(features, exp_features, axis = 2)
-    feature_merge = [i + ":" + j for i, j in zip(features, exp_features)]
     with st.sidebar:
         st.title("Underlying Properties")
         sliders = []
         for ind, col in enumerate(features):
             if col == "density":
                 col_slider = st.slider(label = exp_features[ind], min_value = float(X_white[col].min()), max_value = float(X_white[col].max()), step = 0.001)#, value = float(X[col].mean()))
-                #st.markdown(f"*{exp_features[ind]}*: ")
-                #st.divider()
+                
             else:    
                 col_slider = st.slider(label = exp_features[ind], min_value = float(X_white[col].min()), max_value = float(X_white[col].max()))#, value = float(X[col].mean()))
-                #st.markdown(f"*{exp_features[ind]}*: ")
-                #st.divider()
+                
             if col in cols_to_transform:
                 col_slider = np.log(col_slider)
                 #st.divider()
