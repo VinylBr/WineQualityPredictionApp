@@ -83,7 +83,7 @@ def RedWine():
         ecolor = "yellow" #color ofr std wick
         )
         ax.set_xlabel("Importance measure")
-        ax.set_xlim(0, 0.15)
+        ax.set_xlim(0, 0.25)
         ax.set_title("Feature Importance") #show the plot
         st.pyplot(feature_fig, use_container_width=True)
 
