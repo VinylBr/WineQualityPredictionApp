@@ -3,6 +3,9 @@ DB_KEY = "196916"
 
 import streamlit as st
 
+#Generate one function for Redwine page and another function for white wine page. 
+#Use selector in streamlit to choose between either pages and run that function
+
 ##Red Wine Page##
 def RedWine():
     import numpy as np
