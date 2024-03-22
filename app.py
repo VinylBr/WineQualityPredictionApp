@@ -45,8 +45,7 @@ def RedWine():
                     "Preservatives: Sulphates (ppm)",
                     "Alcohol Content (%vol)",
                     "Preservatives: Molecular SO2 (ppm)"]
-    #feature_merge = np.concatenate(features, exp_features, axis = 2)
-    #feature_merge = [i + ":" + j for i, j in zip(features, exp_features)]
+   
     with st.sidebar: #define a sidebar
         st.title("Underlying Properties") #title the side bar
         sliders = [] #initialize sliders
@@ -72,7 +71,7 @@ def RedWine():
     st.markdown(f"## Predicted Quality: :red[{y_pred_svr[0]}] (_>5 is Good Wine_)") #Print quality
     st.markdown(f"### :blue[Confidence: {100*bestlabelprobability[0]:.1f}%]") #print the probability of the best class
 
-    st.divider() #inser divider
+    st.divider() #insert divider
 
     with st.expander("Which feature is most important"): #create expander on feature importance
         st.markdown("How importance is a feature to Red wine quality") 
