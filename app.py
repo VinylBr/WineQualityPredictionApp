@@ -95,7 +95,7 @@ def RedWine():
 
     with st.expander("Model Performance"):
         st.markdown("Confusion Matrix: How confused is the ML model :sweat_smile:")
-        st.write("Ex: Row1: for quality 4(true label), 100% of the times model predicts it to be 5 (predicted label) -*Pretty confused with quality 4*")
+        st.write("Ex: Row8: for quality 8(true label), model predicts it to be either 6 or 8 (predicted label)")
         confusion_red, ax1 = plt.subplots(figsize = (5,4))
         y_pred_red_test = model_red.predict(X_red_test) #get model prediction for test data
         
