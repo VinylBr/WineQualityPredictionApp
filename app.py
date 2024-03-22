@@ -170,7 +170,7 @@ def WhiteWine(): #define white wine function
 
 
     with st.expander("Which feature is most important"): #define expander
-        st.markdown("How importance is a feature to Red wine quality")
+        st.markdown("How importance is a feature to white wine quality")
         feature_fig, ax = plt.subplots(figsize = (5,4))
         n_repeats = 11
         feature_importance = permutation_importance(model_white, X_white_test, y_white_test, random_state = 11, n_repeats = n_repeats) #feature importance for RandomForest
