@@ -191,7 +191,7 @@ def WhiteWine(): #define white wine function
 
     with st.expander("Model Performance"): #Plot Confusion matrix
         st.markdown("Confusion Matrix: How confused is the ML model :sweat_smile:")
-        st.write("Ex: Row1: for quality 4(true label), 100% of the times model predicts it to be 5 (predicted label) -*Pretty confused with quality 4*")
+        st.write("Ex: Row1: for quality 3(true label), half the time model predicts it to be either 5 or 6 (predicted label) -*Pretty confused with quality 3*")
         confusion_white, ax2 = plt.subplots(figsize = (5,4))
         y_pred_white_test = model_white.predict(X_white_test) #get model prediction for test data
         
