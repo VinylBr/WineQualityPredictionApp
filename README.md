@@ -1,4 +1,4 @@
-# WineQualityPredictionApp
+# WineQualityPredictionApp: https://vinylbr-winequalitypredictionapp-app-f9qbpz.streamlit.app/
 ## Overview of the project
 1. Deploy trained ML model that predicts the quality of red and white wine
 2. Ensure usability for user who may be unfamiliar to jargon associated with features
